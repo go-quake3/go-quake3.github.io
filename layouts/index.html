@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ .Site.Title }} &mdash; pure-Go Quake III Arena (reserved)</title>
+<meta name="description" content="Reserved organization for the future pure-Go port of Quake III Arena (id Tech 3, 1999). Sibling of go-quake1 (active) and go-quake2. Same discipline: CGO_ENABLED=0, 100% statement coverage, 6-arch CI, BSD-3 wrapper + GPL-2 engine carve-out.">
+<style>
+  :root {
+    --bg: #ffffff; --fg: #1b1f24; --muted: #57606a; --card: #f6f8fa;
+    --border: #d0d7de; --accent: #E81818; --accent-fg: #ffffff;
+    --engine: #E81818; --brand: #57606a;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme]) {
+      --bg: #0d1117; --fg: #e6edf3; --muted: #9198a1; --card: #161b22;
+      --border: #30363d; --accent: #FF4545; --accent-fg: #0d1117;
+      --engine: #FF4545; --brand: #9198a1;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0d1117; --fg: #e6edf3; --muted: #9198a1; --card: #161b22;
+    --border: #30363d; --accent: #FF4545; --accent-fg: #0d1117;
+    --engine: #FF4545; --brand: #9198a1;
+  }
+  :root[data-theme="light"] {
+    --bg: #ffffff; --fg: #1b1f24; --muted: #57606a; --card: #f6f8fa;
+    --border: #d0d7de; --accent: #E81818; --accent-fg: #ffffff;
+    --engine: #E81818; --brand: #57606a;
+  }
+  .theme-toggle {
+    position: fixed; top: 14px; right: 14px; z-index: 10;
+    font: inherit; font-size: .8rem; cursor: pointer; padding: 6px 12px;
+    color: var(--fg); background: var(--card); border: 1px solid var(--border); border-radius: 999px;
+  }
+  .theme-toggle:hover { border-color: var(--accent); }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--fg);
+    font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 0 20px; }
+  header { padding: 72px 0 32px; text-align: center; }
+  .logo { width: 88px; height: 88px; margin: 0 auto 18px; display: block; }
+  h1 { font-size: 2.6rem; margin: 0 0 .3em; letter-spacing: -.02em; }
+  .tagline { font-size: 1.2rem; color: var(--muted); margin: 0 auto; max-width: 680px; }
+  .pills { margin: 22px 0 0; }
+  .pill {
+    display: inline-block; margin: 4px; padding: 3px 10px; font-size: .82rem;
+    color: var(--muted); background: var(--card); border: 1px solid var(--border); border-radius: 999px;
+  }
+  .cta { margin: 30px 0 0; }
+  .btn {
+    display: inline-block; padding: 10px 18px; margin: 4px; border-radius: 8px; text-decoration: none;
+    font-weight: 600; border: 1px solid var(--border);
+  }
+  .btn.primary { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); }
+  .btn.ghost { color: var(--fg); background: transparent; }
+  .lead { color: var(--fg); max-width: 800px; margin: 8px auto 0; text-align: center; }
+  .lead code { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 1px 6px; }
+  h2.section { text-align: center; margin: 40px 0 4px; font-size: 1.4rem; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; padding: 16px 0 8px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; display: flex; flex-direction: column; }
+  .card h3 { margin: 0 0 .35em; font-size: 1.2rem; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .card h3 a { text-decoration: none; }
+  .card .accel { color: var(--muted); font-size: .85rem; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; margin: 0 0 .6em; }
+  .card p { margin: 0 0 .8em; color: var(--fg); font-size: .95rem; }
+  .card .badges { margin-top: auto; }
+  .card .badges img { height: 20px; vertical-align: middle; }
+  .kind { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--border); white-space: nowrap; }
+  .kind.brand { color: var(--brand); border-color: var(--brand); }
+  .principles { color: var(--muted); text-align: center; padding: 10px 0 0; max-width: 820px; margin: 0 auto; }
+  .siblings { text-align: center; padding: 24px 0 0; color: var(--muted); }
+  .siblings a { color: var(--accent); }
+  footer { color: var(--muted); text-align: center; padding: 40px 0 56px; font-size: .9rem; }
+  a { color: var(--accent); }
+</style>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<script>
+  (function(){var m=localStorage.getItem('theme');if(m&&m!=='system')document.documentElement.setAttribute('data-theme',m);})();
+</script>
+</head>
+<body>
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light, dark or system theme"><span id="theme-label">🖥️ System</span></button>
+  <header class="wrap">
+    <img class="logo" src="/img/logo.svg" alt="go-quake3 logo" width="88" height="88">
+    <h1>go-quake3</h1>
+    <p class="tagline"><strong>Reserved</strong> &mdash; pure-Go <strong>Quake III Arena</strong> (id Tech 3,
+      1999). Sibling of <a href="https://github.com/go-quake1">go-quake1</a> (the active id Tech 1
+      port) and <a href="https://github.com/go-quake2">go-quake2</a>.</p>
+    <div class="pills">
+      <span class="pill">org reserved</span>
+      <span class="pill">id Tech 3 &middot; 1999</span>
+      <span class="pill">planned reference: ioquake3</span>
+      <span class="pill">GPL-2.0 engine carve-out</span>
+    </div>
+    <div class="cta">
+      <a class="btn primary" href="https://github.com/go-quake1/engine#readme">go-quake1 (active)</a>
+      <a class="btn ghost" href="https://github.com/go-quake3">GitHub</a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <p class="lead">This organization is staked out so the <code>go-quake&#123;1,2,3&#125;</code>
+      family naming holds together. The Q3 port has not started; watch
+      <a href="https://github.com/go-quake1">go-quake1</a> for the active engine work. Q3 will
+      pick up the same hand-port-from-reference pattern once the earlier ports reach the playable
+      bar &mdash; the planned upstream is <a href="https://github.com/ioquake/ioq3">ioquake3</a>,
+      the maintained GPL-2.0 fork of the 1999 id Software release. Q3's renderer is GPU-shader-
+      driven, which will lean on the <a href="https://github.com/go-virtio">go-virtio</a> Venus
+      (Vulkan-over-virtio) stack instead of the soft renderer Q1 uses.</p>
+
+    <h2 class="section">Repositories</h2>
+    <section class="grid">
+      {{ range .Site.Params.repos }}
+      <article class="card">
+        <h3>
+          <a href="https://github.com/go-quake3/{{ .name }}"><code>{{ .name }}</code></a>
+          <span class="kind {{ .kind }}">{{ .kind }}</span>
+        </h3>
+        <p class="accel">{{ .accel }}</p>
+        <p>{{ .result }}</p>
+        <div class="badges">
+          <a href="https://github.com/go-quake3/{{ .name }}"><img src="https://img.shields.io/github/last-commit/go-quake3/{{ .name }}" alt="last commit"></a>
+        </div>
+      </article>
+      {{ end }}
+    </section>
+
+    <p class="principles">When work begins, every module will be pure Go with
+      <code>CGO_ENABLED=0</code>, held at 100% statement coverage as a CI gate. Every Go file will
+      trace 1:1 to a <code>reference/</code> ioquake3 C function under a pinned upstream commit.
+      The 4-gate provable-test protocol carries forward from
+      <a href="https://github.com/cloud-boot/godoom">godoom</a> and
+      <a href="https://github.com/go-quake1">go-quake1</a>. BSD-3 wrapper + GPL-2 engine carve-out
+      throughout.</p>
+
+    <h2 class="section">Family</h2>
+    <p class="siblings">
+      <a href="https://github.com/go-quake1">go-quake1</a> &mdash; id Tech 1 (1996) &middot; active &middot;
+      <a href="https://github.com/go-quake2">go-quake2</a> &mdash; id Tech 2 (1997) &middot; reserved &middot;
+      <a href="https://github.com/go-quake3"><strong>go-quake3</strong></a> &mdash; id Tech 3 (1999) &middot; this org, reserved
+    </p>
+  </main>
+
+  <footer class="wrap">
+    BSD-3-Clause wrapper &middot; GPL-2.0 engine subtree (planned) &middot;
+    <a href="https://github.com/go-quake3">github.com/go-quake3</a> &middot;
+    reserved
+  </footer>
+  <script>
+  (function(){
+    var order=['system','light','dark'], root=document.documentElement;
+    var labels={system:'🖥️ System',light:'☀️ Light',dark:'🌙 Dark'};
+    function apply(m){ if(m==='system'){root.removeAttribute('data-theme');}else{root.setAttribute('data-theme',m);} localStorage.setItem('theme',m); var el=document.getElementById('theme-label'); if(el)el.textContent=labels[m]; }
+    var mode=localStorage.getItem('theme')||'system'; apply(mode);
+    var btn=document.getElementById('theme-toggle');
+    if(btn) btn.addEventListener('click',function(){ mode=order[(order.indexOf(mode)+1)%order.length]; apply(mode); });
+  })();
+  </script>
+</body>
+</html>

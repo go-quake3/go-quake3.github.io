@@ -1,0 +1,13 @@
+baseURL = "https://go-quake3.github.io/"
+title = "go-quake3"
+disableKinds = ["taxonomy", "term", "RSS", "sitemap", "404"]
+
+[markup.goldmark.renderer]
+  unsafe = true
+
+# Only the brand card today — engine work has not started; org is reserved.
+[[params.repos]]
+  name = "brand"
+  accel = "Logos, favicons, social previews"
+  kind = "brand"
+  result = "Brand assets — SVG / PNG / JPG / ICO / ICNS in color, white-transparent and black-transparent variants. Staked out so the go-quake1 / 2 / 3 family is visually coherent the day the Q3 port starts."
