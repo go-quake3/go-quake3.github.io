@@ -6,10 +6,13 @@
     </linearGradient>
   </defs>
   <rect width="256" height="256" rx="56" fill="url(#qarena)"/>
-  <g fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round">
-    <circle cx="120" cy="124" r="56" stroke-width="14"/>
-    <line x1="154" y1="158" x2="178" y2="190" stroke-width="14"/>
-    <line x1="56" y1="64" x2="200" y2="200" stroke-width="10"/>
-    <path d="M200 200 L186 196 M200 200 L196 186" stroke-width="10"/>
+  <g fill="#FFFFFF">
+    <rect x="18" y="110" width="20" height="36" rx="3"/>
+    <rect x="34" y="120" width="194" height="16" rx="2"/>
+    <polygon points="222,106 222,150 248,128"/>
+  </g>
+  <g fill="#FFFFFF" fill-rule="evenodd">
+    <path d="M124 68 A60 60 0 1 1 124 188 A60 60 0 1 1 124 68 z M124 92 A36 36 0 1 0 124 164 A36 36 0 1 0 124 92 z"/>
+    <path d="M150 152 L170 152 L196 192 L176 192 z"/>
   </g>
 </svg>
