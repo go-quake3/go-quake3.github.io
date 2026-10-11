@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+{{/* Dark Reader repaints pages that already draw their own dark theme, as this one does: ask it to stand aside. */}}
+<meta name="darkreader-lock">
 <title>{{ .Site.Title }} &mdash; pure-Go Quake III Arena (reserved)</title>
 <meta name="description" content="Reserved organization for the future pure-Go port of Quake III Arena (id Tech 3, 1999). Sibling of go-quake1 (active) and go-quake2. Same discipline: CGO_ENABLED=0, 100% statement coverage, 6-arch CI, BSD-3 wrapper + GPL-2 engine carve-out.">
 <style>
