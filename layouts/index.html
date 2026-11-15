@@ -41,13 +41,11 @@
   <div class="hero"><div class="wrap">
     <div>
       <h1 class="head">go-quake3</h1>
-      <p class="sub"><strong>Reserved</strong> &mdash; pure-Go <strong>Quake III Arena</strong> (id Tech 3,
+      <p class="sub"><strong>Reserved</strong> &mdash; {{ if partial "mantra-on.html" . }}Go{{ else }}pure-Go{{ end }} <strong>Quake III Arena</strong> (id Tech 3,
       1999). Sibling of <a href="https://github.com/go-quake1">go-quake1</a> (the active id Tech 1
       port) and <a href="https://github.com/go-quake2">go-quake2</a>.</p>
-      <div class="cta">
-        <a class="btn btn-primary" href="https://github.com/go-quake1/engine#readme">{{ partial "icons/github.html" . }}go-quake1 (active)</a>
-        <a class="btn btn-ghost" href="https://github.com/go-quake3">{{ partial "icons/github.html" . }}GitHub</a>
-      </div>
+      {{/* [[params.cta]] in hugo.toml: the kit renders the row */}}
+      {{ partial "cta.html" . }}
       <div class="trust"><span class="pill">org reserved</span><span class="pill">id Tech 3 &middot; 1999</span><span class="pill">planned reference: ioquake3</span><span class="pill">GPL-2.0 engine carve-out</span></div>
     </div>
     {{ partial "hero-carousel.html" . }}
